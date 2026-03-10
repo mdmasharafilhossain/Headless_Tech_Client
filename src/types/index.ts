@@ -1,7 +1,5 @@
 export interface Feedback {
-
     _id?: string
-
     name: string
 
     message: string
@@ -13,4 +11,10 @@ export interface Feedback {
 
     createdAt?: string
 
+}
+
+
+
+export interface feedbackProps {
+  data: Feedback
 }

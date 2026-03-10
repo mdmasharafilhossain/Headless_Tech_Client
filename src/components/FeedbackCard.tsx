@@ -1,11 +1,7 @@
-import type { Feedback } from "../types"
+import type { feedbackProps } from "../types";
 
 
-interface Props {
-  data: Feedback
-}
-
-export default function FeedbackCard({ data }: Props) {
+export default function FeedbackCard({ data }: feedbackProps) {
 
   return (
     <div className="bg-white border border-orange-100 rounded-xl p-5 shadow-sm hover:shadow-md transition">
