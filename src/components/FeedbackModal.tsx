@@ -5,7 +5,7 @@ import { feedbackSchema, type FeedbackInput } from "../schema/Feedback/feedbackS
 import Swal from "sweetalert2"
 
 
-export default function FeedbackForm() {
+export default function FeedbackModal() {
   const {
     register,
     handleSubmit,
