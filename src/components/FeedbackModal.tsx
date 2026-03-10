@@ -4,8 +4,12 @@ import { BaseApi } from "../api/BaseApi"
 import { feedbackSchema, type FeedbackInput } from "../schema/Feedback/feedbackSchema"
 import Swal from "sweetalert2"
 
+type Props = {
+  reload: () => Promise<void>
+}
 
-export default function FeedbackModal() {
+export default function FeedbackModal({ reload }: Props) {
+
   const {
     register,
     handleSubmit,
@@ -17,41 +21,53 @@ export default function FeedbackModal() {
 
   const onSubmit = async (data: FeedbackInput) => {
     try {
-        await BaseApi.post("/feedback", data)
-         Swal.fire({
 
-         icon: "success",
-         title: "Feedback Submitted",
-         text: "Thank you for your feedback!",
-         confirmButtonColor: "#f97316",
+      await BaseApi.post("/feedback", data)
+
+      Swal.fire({
+        icon: "success",
+        title: "Feedback Submitted",
+        text: "Thank you for your feedback!",
+        confirmButtonColor: "#f97316",
       })
+
       reset()
-    } catch{
-         Swal.fire({
-           icon: "error",
-           title: "Submission Failed",
-           text: "Something went wrong. Please try again.",
-           confirmButtonColor: "#f97316",
+      await reload()
+
+    } catch {
+
+      Swal.fire({
+        icon: "error",
+        title: "Submission Failed",
+        text: "Something went wrong. Please try again.",
+        confirmButtonColor: "#f97316",
       })
+
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-orange-50">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-semibold text-center text-orange-600 mb-6">
+
+    <div className="w-full flex justify-center">
+
+      <div className="w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl bg-white rounded-xl shadow-lg p-6 sm:p-8">
+
+        <h2 className="text-xl sm:text-2xl font-semibold text-center text-orange-600 mb-6">
           Submit Feedback
         </h2>
+
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+
           <div>
-             <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-gray-700">
               Name
-             </label>
-             <input
+            </label>
+
+            <input
               {...register("name")}
-               placeholder="Enter your name"
+              placeholder="Enter your name"
               className="mt-1 w-full px-3 py-2 border border-orange-200 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
-                />
+            />
 
             {errors.name && (
               <p className="text-red-500 text-sm mt-1">
@@ -85,9 +101,9 @@ export default function FeedbackModal() {
 
             <textarea
               {...register("message")}
-              rows={4}
+              rows={5}
               placeholder="Write your feedback..."
-              className="mt-1 w-full px-3 py-2 border border-orange-200 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className="mt-1 w-full px-3 py-2 border border-orange-200 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
             />
 
             {errors.message && (
@@ -99,12 +115,16 @@ export default function FeedbackModal() {
 
           <button
             type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 rounded-md transition"
+            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2.5 rounded-md transition"
           >
             Submit Feedback
           </button>
+
         </form>
+
       </div>
+
     </div>
+
   )
 }
