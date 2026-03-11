@@ -18,3 +18,11 @@ export interface Feedback {
 export interface feedbackProps {
   data: Feedback
 }
+export type Filters = {
+  name: string
+  category: string
+  priority: string
+}
+export type Props = {
+  reload: () => Promise<void>
+}
