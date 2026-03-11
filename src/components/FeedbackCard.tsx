@@ -19,11 +19,8 @@ export default function FeedbackCard({ data }: feedbackProps) {
         </span>
 
         <span className="text-xs font-medium bg-red-100 text-red-600 px-3 py-1 rounded-full">
-
            {data?.priority}
         </span>
-
-
         <span className="text-xs font-medium bg-green-100 text-green-600 px-3 py-1 rounded-full">
           {data?.sentiment}
         </span>

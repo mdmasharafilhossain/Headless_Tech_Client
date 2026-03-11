@@ -84,10 +84,10 @@ export default function FeedbackModal({ reload }: Props) {
               Feedback
             </label>
 
-            <textarea
+             <textarea
               {...register("message")}
-              rows={5}
-              placeholder="Write your feedback..."
+               rows={5}
+                placeholder="Write your feedback..."
               disabled={isSubmitting}
               className="mt-1 w-full px-3 py-2 border border-orange-200 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none disabled:opacity-60"
             />
@@ -106,9 +106,7 @@ export default function FeedbackModal({ reload }: Props) {
           </button>
 
         </form>
-
       </div>
-
     </div>
 
   )
