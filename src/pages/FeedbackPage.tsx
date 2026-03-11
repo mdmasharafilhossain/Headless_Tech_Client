@@ -14,6 +14,8 @@ type Filters = {
 export default function FeedbackPage() {
 
   const [feedbacks, setFeedbacks] = useState<Feedback[]>([])
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1)
 
   const [filters, setFilters] = useState<Filters>({
     name: "",
@@ -24,10 +26,17 @@ export default function FeedbackPage() {
   const loadData = async (): Promise<void> => {
 
     const res = await BaseApi.get("/feedback", {
-      params: filters
+      params: {
+        ...filters,
+        page,
+        limit: 6
+      }
     })
 
-    setFeedbacks(Array.isArray(res.data.data) ? res.data.data : [])
+    const responseData = res.data
+
+    setFeedbacks(Array.isArray(responseData.data) ? responseData.data : [])
+    setTotalPages(responseData.pagination?.totalPages || 1)
 
   }
 
@@ -39,7 +48,7 @@ export default function FeedbackPage() {
 
     fetchData()
 
-  }, [])
+  }, [page])
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -55,6 +64,7 @@ export default function FeedbackPage() {
   }
 
   const handleSearch = (): void => {
+    setPage(1)
     void loadData()
   }
 
@@ -63,9 +73,10 @@ export default function FeedbackPage() {
     <div className="min-h-screen bg-orange-50 py-10">
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
+
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
 
-             <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left">
 
             <h1 className="text-3xl sm:text-4xl font-bold text-orange-600 leading-tight">
               User Feedback <br />
@@ -77,10 +88,12 @@ export default function FeedbackPage() {
           <FeedbackModal reload={loadData} />
 
         </div>
+
         <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
-             <input
+            <input
               name="name"
               placeholder="Search name"
               value={filters.name}
@@ -129,7 +142,9 @@ export default function FeedbackPage() {
         </div>
 
         {feedbacks.length === 0 ? (
+
           <div className="text-center py-16 bg-white rounded-xl shadow-sm">
+
             <h2 className="text-lg font-semibold text-gray-600">
               No feedback found
             </h2>
@@ -142,14 +157,39 @@ export default function FeedbackPage() {
 
         ) : (
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          <>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
 
-            {feedbacks.map((feedback) => (
-              <FeedbackCard key={feedback._id} data={feedback} />
-            ))}
+              {feedbacks.map((feedback) => (
+                <FeedbackCard key={feedback._id} data={feedback} />
+              ))}
 
-          </div>
+            </div>
 
+            <div className="flex justify-center gap-3 mt-10">
+
+              <button
+                disabled={page === 1}
+                onClick={() => setPage(page - 1)}
+                className="px-4 py-2 bg-orange-500 text-white rounded disabled:opacity-40"
+              >
+                Prev
+              </button>
+
+              <span className="px-4 py-2 font-medium text-gray-700">
+                Page {page} / {totalPages}
+              </span>
+
+              <button
+                disabled={page === totalPages}
+                onClick={() => setPage(page + 1)}
+                className="px-4 py-2 bg-orange-500 text-white rounded disabled:opacity-40"
+              >
+                Next
+              </button>
+
+            </div>
+          </>
         )}
 
       </div>
