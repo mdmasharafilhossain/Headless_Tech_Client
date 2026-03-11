@@ -1,73 +1,159 @@
-# React + TypeScript + Vite
+# User Feedback Intelligence System - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the frontend application for the **AI-Powered User Feedback Intelligence System**.
 
-Currently, two official plugins are available:
+The application allows users to submit feedback, automatically analyze it using AI, and view feedback insights in an organized interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The frontend communicates with the backend API and provides a clean, responsive interface for submitting and managing feedback data.
 
-## React Compiler
+AI analysis is performed in the backend using **LangChain.js and Google Gemini**, while the frontend focuses on **user experience, feedback submission, and intelligent filtering of feedback data**.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+# Related Links
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Frontend Repository:  
+https://github.com/mdmasharafilhossain/Headless_Tech_Client
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Backend Repository:  
+https://github.com/mdmasharafilhossain/Headless_Tech_Server
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Live Application (Backend):  
+https://headless-tech-server.vercel.app
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Live Application (Frontend):  
+https://headless-client-six.vercel.app
+
+---
+
+# Tech Stack
+
+- React
+- TypeScript
+- Tailwind CSS
+- React Hook Form
+- Axios
+- SweetAlert2
+- React Router
+- Vite
+
+---
+
+# Features
+
+## Feedback Submission System
+
+Users can easily submit feedback using a clean and intuitive interface.
+
+Each feedback includes:
+
+- User Name
+- Feedback Message
+- Email (optional)
+
+Once submitted:
+
+1. The frontend sends feedback data to the backend
+2. The backend processes the message using AI
+3. AI extracts insights and stores them in the database
+4. The responsible team receives an email notification
+
+---
+
+## AI-Powered Feedback Intelligence
+
+Although AI processing happens in the backend, the frontend displays AI insights clearly.
+
+Each feedback includes:
+
+- **Category**
+- **Priority**
+- **Sentiment**
+- **Assigned Team**
+
+Example feedback card display:
+```bash
+Name: John Doe
+Message: The login system is very slow.
+
+Category: Performance
+Priority: High
+Sentiment: Negative
+Team: Backend
+```
+## Feedback Search & Filtering
+
+Users can filter feedback using:
+
+- Name search
+- Category filter
+- Priority filter
+
+Example use cases:
+
+- Find all **high priority issues**
+- Find all **performance-related feedback**
+- Search feedback submitted by a specific user
+
+This helps in quick feedback analysis.
+## UI & Experience
+
+The interface is designed to be:
+
+- Clean
+- Modern
+- Responsive
+- Easy to navigate
+
+Key UI features include:
+
+✅ Tailwind-based responsive layout  
+✅ Modal-based feedback submission  
+✅ Card-based feedback display  
+✅ Smooth transitions and hover effects  
+✅ SweetAlert notifications for success and errors  
+✅ Filter bar for quick search  
+
+---
+# How to Run the Frontend
+
+## 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/mdmasharafilhossain/Headless_Tech_Client
+cd Headless_Tech_Client
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 2️⃣ Install Dependencies
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+---
+
+## 3️⃣ Environment Variables
+
+Create a `.env.local` file:
+
+```bash
+VITE_API_URL=http://localhost:5000/api
+```
+
+---
+
+## 4️⃣ Start Development Server
+
+```bash
+npm run dev
+```
+
+The app will run on:
+
+```
+http://localhost:5173
+```
+
+---
